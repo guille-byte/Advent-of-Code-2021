@@ -18,7 +18,7 @@ int main()
     depthReadingsFile.open(inputFileName, ios::in);
     if (depthReadingsFile.is_open())
     {
-        int lastDepthReading = INT64_MAX;
+        int lastDepthReading = INT32_MAX;
         size_t numTimesDepthIncreased = 0;
         string currentLine;
         while (getline(depthReadingsFile, currentLine))
