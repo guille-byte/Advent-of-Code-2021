@@ -5,31 +5,39 @@
 #include <sstream>
 #include <vector>
 
-#include <boost/filesystem.hpp>
+// #include <boost/filesystem.hpp>
 
 using namespace std;
 
 int main()
 {
     string inputFileName;
-    while (inputFileName.substr())
     cout << "Enter the filename of the depth readings: ";
     cin >> inputFileName;
-    fstream depthReadings;
-    depthReadings.open("SampleMaps.txt", ios::in);
-    if (depthReadings.is_open())
+    fstream depthReadingsFile;
+    depthReadingsFile.open(inputFileName, ios::in);
+    if (depthReadingsFile.is_open())
     {
+        int lastDepthReading = INT64_MAX;
+        size_t numTimesDepthIncreased = 0;
         string currentLine;
-        while (getline(depthReadings, currentLine))
+        while (getline(depthReadingsFile, currentLine))
         {
-            stoi(currentline)
+            int currentDepthReading = stoi(currentLine);
+            if (currentDepthReading > lastDepthReading) {
+                ++numTimesDepthIncreased;
+            }
+            lastDepthReading = currentDepthReading;
         }
-        depthReadings.close();
+        depthReadingsFile.close();
+        cout << "Number of times depth increased: " << numTimesDepthIncreased;
+    } else {
+        cout << "ERROR: Could not open file with name: " << inputFileName;
     }
 
-    fstream outputFile;
-    outputFile.open("solution.txt", ios::out);
-    if (outputFile.is_open()) {
-        
-    }
+    // fstream outputFile;
+    // outputFile.open("solution.txt", ios::out);
+    // if (outputFile.is_open())
+    // {
+    // }
 }
